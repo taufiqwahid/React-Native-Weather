@@ -8,13 +8,18 @@ const Stack = createStackNavigator();
 
 const Router = () => {
   return (
-    <Stack.Navigator initialRouteName={Forecast}>
-      <Stack.Screen name="Home" component={Home} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="Forecast"
         component={Forecast}
         options={{
-          headerTintColor: 'white',
+          headerTitleAlign: 'center',
+          headerBackTitle: true,
         }}
       />
     </Stack.Navigator>

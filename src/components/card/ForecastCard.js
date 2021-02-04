@@ -15,7 +15,9 @@ export default class ForecastCard extends Component {
 
     return (
       <Card containerStyle={styles.card} key={this.props.idnya}>
-        <Text style={styles.notes}>{this.props.location}</Text>
+        <Text style={styles.notes}>
+          {this.props.detail.weather[0].description}
+        </Text>
         <View
           style={{
             flexDirection: 'row',
@@ -33,11 +35,9 @@ export default class ForecastCard extends Component {
           />
           <Text style={styles.time}>{time}</Text>
         </View>
-        <Divider style={{backgroundColor: '#dfe6e9', marginVertical: 20}} />
+        <Divider style={{backgroundColor: '#f5f5f5', marginVertical: 20}} />
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={styles.notes}>
-            {this.props.detail.weather[0].description}
-          </Text>
+          <Text style={styles.notes}>{this.props.location}</Text>
           <Text style={styles.notes}>
             {Math.round(this.props.detail.main.temp * 10) / 10}&#8451;
           </Text>
@@ -49,7 +49,7 @@ export default class ForecastCard extends Component {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'rgba(56, 172, 236, 1)',
+    backgroundColor: '#47BFDF',
     borderWidth: 0,
     borderRadius: 20,
   },

@@ -3,6 +3,7 @@ import {FlatList, View, Text} from 'react-native';
 
 import Geolocation from '@react-native-community/geolocation';
 import ForecastCard from '../components/card/ForecastCard';
+import axios from 'axios';
 
 export default class Forecast extends Component {
   constructor(props) {
@@ -25,13 +26,11 @@ export default class Forecast extends Component {
       '&units=metric&appid=a4c53e3bfccfd232681f269492135c43';
 
     // Call the API, and set the state of the weather forecast
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState((prevState, props) => ({
-          forecast: data,
-        }));
+    axios.get(url).then((response) => {
+      this.setState({
+        forecast: response.data,
       });
+    });
   }
 
   componentDidMount() {
