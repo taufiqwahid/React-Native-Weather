@@ -14,6 +14,7 @@ export default class Forecast extends Component {
       forecast: [],
       error: '',
     };
+    this.getWeather = this.getWeather.bind(this);
   }
 
   getWeather() {
@@ -59,7 +60,6 @@ export default class Forecast extends Component {
         keyExtractor={(item) => item.dt.toString()}
         renderItem={({item}) => (
           <ForecastCard
-            idnya={item.dt}
             detail={item}
             location={this.state.forecast.city.name}
           />

@@ -28,9 +28,9 @@ export default class ForecastCard extends Component {
             style={{width: 100, height: 100}}
             source={{
               uri:
-                'https://openweathermap.org/img/w/' +
+                'https://openweathermap.org/img/wn/' +
                 this.props.detail.weather[0].icon +
-                '.png',
+                '@2x.png',
             }}
           />
           <Text style={styles.time}>{time}</Text>
