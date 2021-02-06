@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, Button, Image} from 'react-native';
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
 import {IconHumidity, IconLocation, IconWind} from '../assets/index';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {PermissionsAndroid} from 'react-native';
 
 export default class Home extends Component {
   constructor(props) {
@@ -36,22 +37,56 @@ export default class Home extends Component {
     });
   }
 
-  componentDidMount() {
-    Geolocation.getCurrentPosition(
-      (position) => {
-        this.setState(
-          () => ({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          }),
-          () => {
-            this.getWeather();
+  componentDidMount = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Permission Location',
+          message:
+            'Wheater App needs access to your location ' +
+            'so you can see Forecast.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted == PermissionsAndroid.RESULTS.GRANTED) {
+        Geolocation.getCurrentPosition(
+          (position) => {
+            this.setState(
+              () => ({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+              }),
+              () => {
+                this.getWeather();
+              },
+            );
           },
+          (error) => {
+            // See error code charts below.
+            console.log(error.code, error.message);
+            alert('If you want to use, please activate your Location');
+          },
+          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
         );
-      },
-      (error) => this.setState({forecast: error.message}),
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-    );
+      } else {
+        alert('If you want to use, please activate your Location');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  componentWillUnmount() {
+    this.setState({
+      city: [],
+      weather: [],
+      temp: [],
+      wind: [],
+      dt: [],
+    });
   }
 
   render() {

@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     fontSize: 38,
   },
   notes: {
+    fontWeight: 'bold',
     fontSize: 18,
     textTransform: 'capitalize',
   },
