@@ -19,12 +19,8 @@ export default class Forecast extends Component {
 
   getWeather() {
     // Construct the API url to call
-    let url =
-      'https://api.openweathermap.org/data/2.5/forecast?lat=' +
-      this.state.latitude +
-      '&lon=' +
-      this.state.longitude +
-      '&units=metric&appid=a4c53e3bfccfd232681f269492135c43';
+    let apiKey = 'a4c53e3bfccfd232681f269492135c43';
+    let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.latitude}&lon=${this.state.longitude}&units=metric&appid=${apiKey}`;
 
     // Call the API, and set the state of the weather forecast
     axios.get(url).then((response) => {

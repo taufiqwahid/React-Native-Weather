@@ -23,7 +23,8 @@ export default class Home extends Component {
   }
 
   getWeather() {
-    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${this.state.latitude}&lon=${this.state.longitude}&units=metric&appid=e5ca57175c2aa3ce883d9cf01eb8445a`;
+    let apiKey = 'e5ca57175c2aa3ce883d9cf01eb8445a';
+    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${this.state.latitude}&lon=${this.state.longitude}&units=metric&appid=${apiKey}`;
     // Call the API, and set the state of the weather forecast
 
     axios.get(url).then((response) => {
